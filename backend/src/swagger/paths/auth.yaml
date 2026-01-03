@@ -1,0 +1,64 @@
+/auth/signup:
+  post:
+    summary: Signup
+    tags: [Auth]
+    responses:
+      200:
+        description: Success
+
+/auth/login:
+  post:
+    summary: Login
+    tags: [Auth]
+    responses:
+      200:
+        description: Success
+
+/auth/logout:
+  post:
+    summary: Logout user
+    tags:
+      - Auth
+    responses:
+      200:
+        description: User logged out successfully
+      401:
+        description: Unauthorized
+
+/auth/update-profile:
+  put:
+    summary: Update user profile
+    tags:
+      - Auth
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fullName:
+                type: string
+              username:
+                type: string
+              avatar:
+                type: string
+                description: URL ảnh đại diện
+    responses:
+      200:
+        description: Profile updated successfully
+      400:
+        description: Bad request
+      401:
+        description: Unauthorized
+
+/auth/check:
+  get:
+    summary: Check authentication status
+    tags:
+      - Auth
+    responses:
+      200:
+        description: User authenticated
+      401:
+        description: Unauthorized

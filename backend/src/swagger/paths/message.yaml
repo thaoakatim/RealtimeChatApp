@@ -1,0 +1,90 @@
+/api/message/users:
+  get:
+    summary: Lấy danh sách user để hiển thị sidebar chat
+    tags:
+      - Messages
+    responses:
+      200:
+        description: Danh sách user
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  username:
+                    type: string
+                  fullName:
+                    type: string
+                  avatar:
+                    type: string
+      401:
+        description: Unauthorized
+
+/api/message/{id}:
+  get:
+    summary: Lấy tin nhắn giữa người dùng hiện tại và user có id
+    tags:
+      - Messages
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID của người nhận (receiverId)
+    responses:
+      200:
+        description: Danh sách tin nhắn
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                  senderId:
+                    type: string
+                  receiverId:
+                    type: string
+                  message:
+                    type: string
+                  createdAt:
+                    type: string
+      401:
+        description: Unauthorized
+
+/api/message/send/{id}:
+  post:
+    summary: Gửi tin nhắn đến user có id
+    tags:
+      - Messages
+    parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        description: ID của người nhận
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Hello!"
+    responses:
+      201:
+        description: Tin nhắn đã được gửi
+      400:
+        description: Bad Request
+      401:
+        description: Unauthorized
